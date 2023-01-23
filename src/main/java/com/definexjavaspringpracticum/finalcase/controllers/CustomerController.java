@@ -1,6 +1,7 @@
 package com.definexjavaspringpracticum.finalcase.controllers;
 
 import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers(){
+    public ResponseEntity<List<CustomerResponse>> getAllCustomers(){
         return new ResponseEntity<>(this.customerService.getAllCustomers(), HttpStatus.OK);
     }
 }
