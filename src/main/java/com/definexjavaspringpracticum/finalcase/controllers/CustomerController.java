@@ -1,6 +1,7 @@
 package com.definexjavaspringpracticum.finalcase.controllers;
 
 import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
+import com.definexjavaspringpracticum.finalcase.requests.CustomerUpdateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,10 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerCreateRequest customerCreateRequest){
         return new ResponseEntity<>(this.customerService.createCustomer(customerCreateRequest),HttpStatus.CREATED );
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable Long id,@RequestBody CustomerUpdateRequest customerUpdateRequest){
+        return new ResponseEntity<>(this.customerService.updateCustomer(id,customerUpdateRequest),HttpStatus.CREATED );
     }
 }
