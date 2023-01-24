@@ -32,4 +32,7 @@ public class CustomerCreateRequest {
 
     @NotNull
     Date birthDate;
+
+    @NotNull
+    int creditScore;
 }

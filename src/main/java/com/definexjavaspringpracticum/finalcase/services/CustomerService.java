@@ -42,7 +42,8 @@ public class CustomerService {
                     customerCreateRequest.getLastName(),
                     customerCreateRequest.getMonthlyIncome(),
                     customerCreateRequest.getPhoneNumber(),
-                    customerCreateRequest.getBirthDate()));
+                    customerCreateRequest.getBirthDate(),
+                    customerCreateRequest.getCreditScore()));
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is added.");
         }
     }
@@ -59,6 +60,7 @@ public class CustomerService {
             customer.setMonthlyIncome(customerUpdateRequest.getMonthlyIncome());
             customer.setIdentityNumber(customerUpdateRequest.getIdentityNumber());
             customer.setPhoneNumber(customerUpdateRequest.getPhoneNumber());
+            customer.setCreditScore(customerUpdateRequest.getCreditScore());
             customerRepository.save(customer);
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is updated.");
         }

@@ -33,4 +33,7 @@ public class CustomerUpdateRequest {
 
     @NotNull
     Date birthDate;
+
+    @NotNull
+    int creditScore;
 }

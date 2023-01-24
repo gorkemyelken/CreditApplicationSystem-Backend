@@ -17,7 +17,7 @@ public class CustomerResponse {
     Double monthlyIncome;
     String phoneNumber;
     Date birthDate;
-
+    int creditScore;
     public CustomerResponse(Customer customer){
         this.customerId = customer.getCustomerId();
         this.identityNumber = customer.getIdentityNumber();
@@ -26,5 +26,6 @@ public class CustomerResponse {
         this.monthlyIncome = customer.getMonthlyIncome();
         this.phoneNumber = customer.getPhoneNumber();
         this.birthDate = customer.getBirthDate();
+        this.creditScore = customer.getCreditScore();
     }
 }

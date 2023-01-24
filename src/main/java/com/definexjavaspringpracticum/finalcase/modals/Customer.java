@@ -1,17 +1,21 @@
 package com.definexjavaspringpracticum.finalcase.modals;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name= "customer")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","creditApplications"})
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +33,19 @@ public class Customer {
 
     private Date birthDate;
 
-    public Customer(String identityNumber, String firstName, String lastName, Double monthlyIncome, String phoneNumber, Date birthDate) {
+    private int creditScore;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    private List<CreditApplication> creditApplications;
+
+    public Customer(String identityNumber, String firstName, String lastName, Double monthlyIncome, String phoneNumber, Date birthDate, int creditScore) {
         this.identityNumber = identityNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.monthlyIncome = monthlyIncome;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
+        this.creditScore = creditScore;
     }
 }
