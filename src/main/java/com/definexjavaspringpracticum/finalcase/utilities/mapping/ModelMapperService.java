@@ -1,4 +1,4 @@
-package com.definexjavaspringpracticum.finalcase.utilities;
+package com.definexjavaspringpracticum.finalcase.utilities.mapping;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

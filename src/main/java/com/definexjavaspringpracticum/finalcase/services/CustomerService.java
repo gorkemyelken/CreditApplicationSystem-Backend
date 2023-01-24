@@ -5,54 +5,84 @@ import com.definexjavaspringpracticum.finalcase.repositories.CustomerRepository;
 import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.requests.CustomerUpdateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
-import com.definexjavaspringpracticum.finalcase.utilities.ModelMapperService;
+import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
+import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorDataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessDataResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
-    private CustomerRepository customerRepository;
-    private ModelMapperService modelMapperService;
-
+    private final CustomerRepository customerRepository;
+    private final ModelMapperService modelMapperService;
+    @Autowired
     public CustomerService(CustomerRepository customerRepository, ModelMapperService modelMapperService) {
         this.customerRepository = customerRepository;
         this.modelMapperService = modelMapperService;
     }
 
-    public List<CustomerResponse> getAllCustomers() {
+    public DataResult<List<CustomerResponse>> getAllCustomers() {
         List<Customer> customers = this.customerRepository.findAll();
         List<CustomerResponse> result = customers.stream().map(customer -> this.modelMapperService.forDto().map(customer,CustomerResponse.class)).collect(Collectors.toList());
-        return result;
+        return new SuccessDataResult<>(result,"Customers are listed.");
     }
 
-    public CustomerResponse createCustomer(CustomerCreateRequest customerCreateRequest){
-        Customer customer = this.customerRepository.save(new Customer(
-                customerCreateRequest.getIdentityNumber(),
-                customerCreateRequest.getFirstName(),
-                customerCreateRequest.getLastName(),
-                customerCreateRequest.getMonthlyIncome(),
-                customerCreateRequest.getPhoneNumber(),
-                customerCreateRequest.getBirthDate()));
-
-        return new CustomerResponse(customer);
-    }
-
-    public CustomerResponse updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest){
-        Optional<Customer> customer = this.customerRepository.findById(id);
-        if(customer.isPresent()){
-            Customer customerToUpdate = customer.get();
-            customerToUpdate.setFirstName(customerUpdateRequest.getFirstName());
-            customerToUpdate.setLastName(customerUpdateRequest.getLastName());
-            customerToUpdate.setBirthDate(customerUpdateRequest.getBirthDate());
-            customerToUpdate.setMonthlyIncome(customerUpdateRequest.getMonthlyIncome());
-            customerToUpdate.setIdentityNumber(customerUpdateRequest.getIdentityNumber());
-            customerToUpdate.setPhoneNumber(customerUpdateRequest.getPhoneNumber());
-            customerRepository.save(customerToUpdate);
-            return new CustomerResponse(customerToUpdate);
+    public DataResult<CustomerResponse> createCustomer(CustomerCreateRequest customerCreateRequest){
+        if(checkIfIdentityNumberExists(customerCreateRequest.getIdentityNumber())){
+            return new ErrorDataResult<>("Identity number is already exist.");
         }
-        return null;
+        else{
+            Customer customer = this.customerRepository.save(new Customer(
+                    customerCreateRequest.getIdentityNumber(),
+                    customerCreateRequest.getFirstName(),
+                    customerCreateRequest.getLastName(),
+                    customerCreateRequest.getMonthlyIncome(),
+                    customerCreateRequest.getPhoneNumber(),
+                    customerCreateRequest.getBirthDate()));
+            return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is added.");
+        }
+    }
+
+    public DataResult<CustomerResponse> updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest){
+        if(checkIfCustomerIdExists(customerId)){
+            return new ErrorDataResult<>("Customer id is not found.");
+        }
+        else{
+            Customer customer = this.customerRepository.findByCustomerId(customerId);
+            customer.setFirstName(customerUpdateRequest.getFirstName());
+            customer.setLastName(customerUpdateRequest.getLastName());
+            customer.setBirthDate(customerUpdateRequest.getBirthDate());
+            customer.setMonthlyIncome(customerUpdateRequest.getMonthlyIncome());
+            customer.setIdentityNumber(customerUpdateRequest.getIdentityNumber());
+            customer.setPhoneNumber(customerUpdateRequest.getPhoneNumber());
+            customerRepository.save(customer);
+            return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is updated.");
+        }
+    }
+
+
+
+    public DataResult<CustomerResponse> delete(Long customerId){
+        if(checkIfCustomerIdExists(customerId)){
+            return new ErrorDataResult<>("Customer id is not found.");
+        }
+        else{
+            Customer customer = this.customerRepository.findByCustomerId(customerId);
+            this.customerRepository.deleteById(customerId);
+            return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is deleted.");
+        }
+    }
+
+
+    private boolean checkIfIdentityNumberExists(String identityNumber) {
+        return this.customerRepository.existsByIdentityNumber(identityNumber);
+    }
+
+    private boolean checkIfCustomerIdExists(Long customerId) {
+        return !this.customerRepository.existsByCustomerId(customerId);
     }
 }

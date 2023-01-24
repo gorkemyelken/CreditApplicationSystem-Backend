@@ -15,19 +15,19 @@ import java.sql.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long customerId;
 
-    String identityNumber;
+    private String identityNumber;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
-    Double monthlyIncome;
+    private Double monthlyIncome;
 
-    String phoneNumber;
+    private String phoneNumber;
 
-    Date birthDate;
+    private Date birthDate;
 
     public Customer(String identityNumber, String firstName, String lastName, Double monthlyIncome, String phoneNumber, Date birthDate) {
         this.identityNumber = identityNumber;

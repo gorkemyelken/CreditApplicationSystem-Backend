@@ -10,7 +10,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerResponse {
-    Long id;
+    Long customerId;
     String identityNumber;
     String firstName;
     String lastName;
@@ -19,7 +19,7 @@ public class CustomerResponse {
     Date birthDate;
 
     public CustomerResponse(Customer customer){
-        this.id = customer.getId();
+        this.customerId = customer.getCustomerId();
         this.identityNumber = customer.getIdentityNumber();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();
