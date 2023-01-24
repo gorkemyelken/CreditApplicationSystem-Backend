@@ -49,7 +49,7 @@ public class CustomerService {
     }
 
     public DataResult<CustomerResponse> updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest){
-        if(checkIfCustomerIdExists(customerId)){
+        if(!checkIfCustomerIdExists(customerId)){
             return new ErrorDataResult<>("Customer id is not found.");
         }
         else{
@@ -69,7 +69,7 @@ public class CustomerService {
 
 
     public DataResult<CustomerResponse> delete(Long customerId){
-        if(checkIfCustomerIdExists(customerId)){
+        if(!checkIfCustomerIdExists(customerId)){
             return new ErrorDataResult<>("Customer id is not found.");
         }
         else{
@@ -85,6 +85,6 @@ public class CustomerService {
     }
 
     private boolean checkIfCustomerIdExists(Long customerId) {
-        return !this.customerRepository.existsByCustomerId(customerId);
+        return this.customerRepository.existsByCustomerId(customerId);
     }
 }

@@ -8,6 +8,8 @@ import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationRespo
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorDataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorResult;
 import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +44,20 @@ public class CreditApplicationService {
                 creditApplicationCreateRequest.getConfirmationInformation(),
                 creditApplicationCreateRequest.getLimit()));
         return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+    }
+
+    public DataResult<CreditApplicationResponse> delete(Long creditApplicationId){
+        if(!checkIfCreditApplicationIdExist(creditApplicationId)){
+            return new ErrorDataResult<>("Credit application id is not found.");
+        }
+        else{
+            CreditApplication creditApplication = this.creditApplicationRepository.findByCreditApplicationId(creditApplicationId);
+            this.creditApplicationRepository.deleteById(creditApplicationId);
+            return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is deleted.");
+        }
+    }
+
+    private boolean checkIfCreditApplicationIdExist(Long creditApplicationId) {
+        return this.creditApplicationRepository.existsByCreditApplicationId(creditApplicationId);
     }
 }

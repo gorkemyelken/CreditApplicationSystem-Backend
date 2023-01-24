@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CreditApplicationRepository extends JpaRepository<CreditApplication, Long> {
+    boolean existsByCreditApplicationId(Long creditApplicationId);
+
+    CreditApplication findByCreditApplicationId(Long creditApplicationId);
 }
