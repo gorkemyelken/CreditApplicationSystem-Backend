@@ -21,7 +21,7 @@ public class CreditCondition {
             return creditApplication;
         }
         //If the credit score is between 500 points and 1000 points and the monthly income is below 5000 TL, the user will be approved and a limit of 10.000 TL is assigned to the user. (Credit Result: Approved)
-        else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
+        else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() >= 500)
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 5000)) {
             creditApplication.setConfirmationInformation("Approved.");
@@ -30,9 +30,9 @@ public class CreditCondition {
             return creditApplication;
         }
         //If the credit score is between 500 points and 1000 points and the monthly income is between 5000 TL and 10,000 TL, the user will be approved and a 20,000 TL limit is assigned to the user. (Credit Result:Approved)
-        else if((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
+        else if((creditApplicationCreateRequest.getCustomer().getCreditScore() >= 500)
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
-                && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() > 5000)
+                && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() >= 5000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 10000)){
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
@@ -40,7 +40,7 @@ public class CreditCondition {
             return creditApplication;
         }
         //If the credit score is between 500 points and 1000 points and the monthly income is above 10.000 TL, the user will be approved and the user is assigned a limit of MONTHLY INCOME INFORMATION * CREDIT LIMIT MULTIPLIER/2. (Credit Result:Approved)
-        else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
+        else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() >= 500)
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() >= 10000)) {
             creditApplication.setConfirmationInformation("Approved.");

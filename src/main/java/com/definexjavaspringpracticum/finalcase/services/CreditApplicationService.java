@@ -3,6 +3,7 @@ package com.definexjavaspringpracticum.finalcase.services;
 import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
 import com.definexjavaspringpracticum.finalcase.modals.Customer;
 import com.definexjavaspringpracticum.finalcase.repositories.CreditApplicationRepository;
+import com.definexjavaspringpracticum.finalcase.repositories.CustomerRepository;
 import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
 import com.definexjavaspringpracticum.finalcase.services.constants.CreditCondition;
@@ -14,22 +15,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CreditApplicationService {
-    private final Date date;
-    private final int creditLimitMultiplier = 4;
     private final CreditApplicationRepository creditApplicationRepository;
+    private final CustomerRepository customerRepository;
     private final ModelMapperService modelMapperService;
 
     @Autowired
-    public CreditApplicationService(CreditApplicationRepository creditApplicationRepository, ModelMapperService modelMapperService) {
+    public CreditApplicationService(CreditApplicationRepository creditApplicationRepository, CustomerRepository customerRepository, ModelMapperService modelMapperService) {
         this.creditApplicationRepository = creditApplicationRepository;
+        this.customerRepository = customerRepository;
         this.modelMapperService = modelMapperService;
-        this.date = Date.valueOf(LocalDate.now());
     }
 
     public DataResult<List<CreditApplicationResponse>> getAllCreditApplications() {
@@ -60,11 +59,15 @@ public class CreditApplicationService {
         }
     }
 
+    public DataResult<Object> find(String identityNumber, Date birthDate){
+        return new SuccessDataResult<>(this.creditApplicationRepository.findByIdentityNumberAndBirthDate(identityNumber,birthDate),"Data listed.");
+    }
+
     private boolean checkIfCreditApplicationIdExist(Long creditApplicationId) {
         return this.creditApplicationRepository.existsByCreditApplicationId(creditApplicationId);
     }
 
     private boolean checkIfCreditApplicationCustomerExist(Customer customer) {
-        return this.creditApplicationRepository.existsByCustomer(customer);
+        return this.customerRepository.existsByCustomerId(customer.getCustomerId());
     }
 }
