@@ -48,16 +48,34 @@ public class CreditApplicationService {
             return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
         }
         //If the credit score is between 500 points and 1000 points and the monthly income is below 5000 TL, the user will be approved and a limit of 10.000 TL is assigned to the user. (Credit Result: Approved)
-        else if (creditApplicationCreateRequest.getCustomer().getCreditScore() > 500
-                && creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000
-                && creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 5000) {
+        else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
+                && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
+                && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 5000)) {
             CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)10000);
             return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
         }
-        else{
+        //If the credit score is between 500 points and 1000 points and the monthly income is between 5000 TL and 10,000 TL, the user will be approved and a 20,000 TL limit is assigned to the user. (Credit Result:Approved)
+        else if((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
+                && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
+                && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() > 5000)
+                && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 10000)){
+            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
+            creditApplication.setConfirmationInformation("Approved.");
+            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
+            creditApplication.setLimit((double)20000);
+            return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+        } else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
+                && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
+                && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() > 10000)) {
+            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
+            creditApplication.setConfirmationInformation("Approved.");
+            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
+            creditApplication.setLimit((double)20000);
+            return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+        } else{
             CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
