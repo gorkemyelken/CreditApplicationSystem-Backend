@@ -1,6 +1,5 @@
 package com.definexjavaspringpracticum.finalcase.controllers;
 
-import com.definexjavaspringpracticum.finalcase.modals.Customer;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.CustomerService;
 import org.springframework.http.HttpStatus;
