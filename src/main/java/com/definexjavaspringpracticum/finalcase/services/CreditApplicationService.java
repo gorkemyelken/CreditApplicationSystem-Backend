@@ -1,6 +1,7 @@
 package com.definexjavaspringpracticum.finalcase.services;
 
 import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
+import com.definexjavaspringpracticum.finalcase.modals.Customer;
 import com.definexjavaspringpracticum.finalcase.repositories.CreditApplicationRepository;
 import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
@@ -19,9 +20,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class CreditApplicationService {
-    private Date date;
-    private CreditApplicationRepository creditApplicationRepository;
-    private ModelMapperService modelMapperService;
+    private final Date date;
+    private final CreditApplicationRepository creditApplicationRepository;
+    private final ModelMapperService modelMapperService;
 
     @Autowired
     public CreditApplicationService(CreditApplicationRepository creditApplicationRepository, ModelMapperService modelMapperService) {
@@ -37,13 +38,18 @@ public class CreditApplicationService {
     }
 
     public DataResult<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
+        if(!checkIfCreditApplicationCustomerExist(creditApplicationCreateRequest.getCustomer())){
+            return new ErrorDataResult<>("Customer is not found.");
+        }
         return new SuccessDataResult<>(new CreditApplicationResponse(Objects.requireNonNull(creditConditions(creditApplicationCreateRequest))),"Credit application is added.");
     }
 
+
+
     private CreditApplication creditConditions(CreditApplicationCreateRequest creditApplicationCreateRequest) {
+        CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
         //If the credit score is below 500, the user will be rejected. (Credit result: Rejected)
         if(creditApplicationCreateRequest.getCustomer().getCreditScore()<500){
-            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Rejected.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)0);
@@ -53,7 +59,6 @@ public class CreditApplicationService {
         else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 5000)) {
-            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)10000);
@@ -64,7 +69,6 @@ public class CreditApplicationService {
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() > 5000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 10000)){
-            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)20000);
@@ -74,7 +78,6 @@ public class CreditApplicationService {
         else if ((creditApplicationCreateRequest.getCustomer().getCreditScore() > 500)
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() > 10000)) {
-            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit(creditApplicationCreateRequest.getCustomer().getMonthlyIncome() * 4 / 2);
@@ -82,7 +85,6 @@ public class CreditApplicationService {
         }
         //If the credit score is equal to or above 1000 points, the user will be approved and the user is assigned a limit equal to MONTHLY INCOME * CREDIT LIMIT MULTIPLIER. (Credit Result: Approved)
         else if((creditApplicationCreateRequest.getCustomer().getCreditScore() >= 1000)){
-            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
             creditApplication.setConfirmationInformation("Approved.");
             creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit(creditApplication.getCustomer().getMonthlyIncome() * 4);
@@ -104,5 +106,9 @@ public class CreditApplicationService {
 
     private boolean checkIfCreditApplicationIdExist(Long creditApplicationId) {
         return this.creditApplicationRepository.existsByCreditApplicationId(creditApplicationId);
+    }
+
+    private boolean checkIfCreditApplicationCustomerExist(Customer customer) {
+        return this.creditApplicationRepository.existsByCustomer(customer);
     }
 }

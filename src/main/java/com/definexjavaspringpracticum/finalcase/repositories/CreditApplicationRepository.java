@@ -1,6 +1,7 @@
 package com.definexjavaspringpracticum.finalcase.repositories;
 
 import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
+import com.definexjavaspringpracticum.finalcase.modals.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ public interface CreditApplicationRepository extends JpaRepository<CreditApplica
     boolean existsByCreditApplicationId(Long creditApplicationId);
 
     CreditApplication findByCreditApplicationId(Long creditApplicationId);
+
+    boolean existsByCustomer(Customer customer);
 }
