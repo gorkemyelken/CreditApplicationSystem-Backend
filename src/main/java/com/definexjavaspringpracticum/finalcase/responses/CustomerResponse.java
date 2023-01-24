@@ -1,10 +1,14 @@
 package com.definexjavaspringpracticum.finalcase.responses;
 
 import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerResponse {
     Long id;
     String identityNumber;

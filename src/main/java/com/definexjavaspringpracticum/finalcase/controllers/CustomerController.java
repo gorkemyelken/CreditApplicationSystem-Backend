@@ -1,12 +1,11 @@
 package com.definexjavaspringpracticum.finalcase.controllers;
 
+import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +21,10 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<List<CustomerResponse>> getAllCustomers(){
         return new ResponseEntity<>(this.customerService.getAllCustomers(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerCreateRequest customerCreateRequest){
+        return new ResponseEntity<>(this.customerService.createCustomer(customerCreateRequest),HttpStatus.CREATED );
     }
 }

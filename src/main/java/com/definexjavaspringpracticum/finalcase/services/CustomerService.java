@@ -2,6 +2,7 @@ package com.definexjavaspringpracticum.finalcase.services;
 
 import com.definexjavaspringpracticum.finalcase.modals.Customer;
 import com.definexjavaspringpracticum.finalcase.repositories.CustomerRepository;
+import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.utilities.ModelMapperService;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,18 @@ public class CustomerService {
         List<Customer> customers = this.customerRepository.findAll();
         List<CustomerResponse> result = customers.stream().map(customer -> this.modelMapperService.forDto().map(customer,CustomerResponse.class)).collect(Collectors.toList());
         return result;
+    }
+
+    public CustomerResponse createCustomer(CustomerCreateRequest customerCreateRequest){
+        Customer customer = this.customerRepository.save(new Customer(
+                customerCreateRequest.getIdentityNumber(),
+                customerCreateRequest.getFirstName(),
+                customerCreateRequest.getLastName(),
+                customerCreateRequest.getMonthlyIncome(),
+                customerCreateRequest.getPhoneNumber(),
+                customerCreateRequest.getBirthDate()));
+
+        return new CustomerResponse(customer);
     }
 
 }
