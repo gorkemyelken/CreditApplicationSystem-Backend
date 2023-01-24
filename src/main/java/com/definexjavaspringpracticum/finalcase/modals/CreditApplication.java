@@ -29,9 +29,7 @@ public class CreditApplication {
     @JsonIgnore
     private Customer customer;
 
-    public CreditApplication(Date createDate, String confirmationInformation, Double limit) {
+    public CreditApplication(Date createDate) {
         this.createDate = createDate;
-        this.confirmationInformation = confirmationInformation;
-        this.limit = limit;
     }
 }

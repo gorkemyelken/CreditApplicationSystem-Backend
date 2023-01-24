@@ -39,11 +39,22 @@ public class CreditApplicationService {
     }
 
     public DataResult<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
-        CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(
-                this.date,
-                creditApplicationCreateRequest.getConfirmationInformation(),
-                creditApplicationCreateRequest.getLimit()));
-        return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+        if(creditApplicationCreateRequest.getCustomer().getCreditScore()<500){
+            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
+            creditApplication.setConfirmationInformation("Rejected.");
+            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
+            creditApplication.setLimit((double)0);
+            return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+        } else if () {
+
+        }
+        else{
+            CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(this.date));
+            creditApplication.setConfirmationInformation("Approved.");
+            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
+            creditApplication.setLimit(creditApplication.getCustomer().getMonthlyIncome() * 4);
+            return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+        }
     }
 
     public DataResult<CreditApplicationResponse> delete(Long creditApplicationId){

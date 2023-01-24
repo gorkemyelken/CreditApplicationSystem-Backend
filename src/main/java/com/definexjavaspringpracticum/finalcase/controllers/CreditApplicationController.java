@@ -30,4 +30,9 @@ public class CreditApplicationController {
     public ResponseEntity<DataResult<CreditApplicationResponse>> createCreditApplication(@RequestBody CreditApplicationCreateRequest creditApplicationCreateRequest){
         return new ResponseEntity<>(this.creditApplicationService.createCreditApplication(creditApplicationCreateRequest),HttpStatus.CREATED );
     }
+
+    @DeleteMapping("/{creditApplicationId}")
+    public ResponseEntity<DataResult<CreditApplicationResponse>> delete(@PathVariable Long creditApplicationId){
+        return new ResponseEntity<>(this.creditApplicationService.delete(creditApplicationId),HttpStatus.OK);
+    }
 }
