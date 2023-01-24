@@ -4,7 +4,7 @@ import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.requests.CustomerUpdateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.CustomerService;
-import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,22 +23,22 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<DataResult<List<CustomerResponse>>> getAllCustomers(){
+    public ResponseEntity<Result<List<CustomerResponse>>> getAllCustomers(){
         return new ResponseEntity<>(this.customerService.getAllCustomers(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<DataResult<CustomerResponse>> createCustomer(@RequestBody CustomerCreateRequest customerCreateRequest){
+    public ResponseEntity<Result<CustomerResponse>> createCustomer(@RequestBody CustomerCreateRequest customerCreateRequest){
         return new ResponseEntity<>(this.customerService.createCustomer(customerCreateRequest),HttpStatus.CREATED );
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<DataResult<CustomerResponse>> updateCustomer(@PathVariable Long customerId,@RequestBody CustomerUpdateRequest customerUpdateRequest){
+    public ResponseEntity<Result<CustomerResponse>> updateCustomer(@PathVariable Long customerId, @RequestBody CustomerUpdateRequest customerUpdateRequest){
         return new ResponseEntity<>(this.customerService.updateCustomer(customerId,customerUpdateRequest),HttpStatus.OK );
     }
 
     @DeleteMapping("/{customerId}")
-    public ResponseEntity<DataResult<CustomerResponse>> delete(@PathVariable Long customerId){
+    public ResponseEntity<Result<CustomerResponse>> delete(@PathVariable Long customerId){
         return new ResponseEntity<>(this.customerService.delete(customerId), HttpStatus.OK);
     }
 }

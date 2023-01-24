@@ -8,9 +8,9 @@ import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreate
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
 import com.definexjavaspringpracticum.finalcase.services.constants.CreditCondition;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
-import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
-import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorDataResult;
-import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessDataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.Result;
+import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,36 +31,36 @@ public class CreditApplicationService {
         this.modelMapperService = modelMapperService;
     }
 
-    public DataResult<List<CreditApplicationResponse>> getAllCreditApplications() {
+    public Result<List<CreditApplicationResponse>> getAllCreditApplications() {
         List<CreditApplication> creditApplications = this.creditApplicationRepository.findAll();
         List<CreditApplicationResponse> result = creditApplications.stream().map(creditApplication -> this.modelMapperService.forDto().map(creditApplication,CreditApplicationResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<>(result,"Credit applications are listed.");
+        return new SuccessResult<>(result,"Credit applications are listed.");
     }
 
-    public DataResult<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
+    public Result<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
         if(!checkIfCreditApplicationCustomerExist(creditApplicationCreateRequest.getCustomer())){
-            return new ErrorDataResult<>("Customer is not found.");
+            return new ErrorResult<>("Customer is not found.");
         }
         CreditApplication creditApplication = new CreditApplication();
         CreditCondition creditCondition = new CreditCondition();
         CreditApplication result = creditCondition.checkCreditCondition(creditApplication, creditApplicationCreateRequest);
         this.creditApplicationRepository.save(result);
-        return new SuccessDataResult<>(new CreditApplicationResponse(result),"Credit application is added.");
+        return new SuccessResult<>(new CreditApplicationResponse(result),"Credit application is added.");
     }
 
-    public DataResult<CreditApplicationResponse> delete(Long creditApplicationId){
+    public Result<CreditApplicationResponse> delete(Long creditApplicationId){
         if(!checkIfCreditApplicationIdExist(creditApplicationId)){
-            return new ErrorDataResult<>("Credit application id is not found.");
+            return new ErrorResult<>("Credit application id is not found.");
         }
         else{
             CreditApplication creditApplication = this.creditApplicationRepository.findByCreditApplicationId(creditApplicationId);
             this.creditApplicationRepository.deleteById(creditApplicationId);
-            return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is deleted.");
+            return new SuccessResult<>(new CreditApplicationResponse(creditApplication),"Credit application is deleted.");
         }
     }
 
-    public DataResult<Object> find(String identityNumber, Date birthDate){
-        return new SuccessDataResult<>(this.creditApplicationRepository.findByIdentityNumberAndBirthDate(identityNumber,birthDate),"Data listed.");
+    public Result<Object> find(String identityNumber, Date birthDate){
+        return new SuccessResult<>(this.creditApplicationRepository.findByIdentityNumberAndBirthDate(identityNumber,birthDate),"Data listed.");
     }
 
     private boolean checkIfCreditApplicationIdExist(Long creditApplicationId) {
