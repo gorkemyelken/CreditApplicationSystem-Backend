@@ -14,8 +14,7 @@ import java.sql.Date;
 public class CreditApplicationCreateRequest {
     private String confirmationInformation = "Rejected";
 
-    @NotNull
-    private Double limit;
+    private Double limit = (double) 0;
 
     private Date createDate;
 
