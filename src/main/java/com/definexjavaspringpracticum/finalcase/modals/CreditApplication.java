@@ -28,4 +28,10 @@ public class CreditApplication {
     @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
+
+    public CreditApplication(Date createDate, String confirmationInformation, Double limit) {
+        this.createDate = createDate;
+        this.confirmationInformation = confirmationInformation;
+        this.limit = limit;
+    }
 }

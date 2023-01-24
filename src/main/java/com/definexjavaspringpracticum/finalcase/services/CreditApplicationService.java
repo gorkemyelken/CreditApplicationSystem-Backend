@@ -3,6 +3,7 @@ package com.definexjavaspringpracticum.finalcase.services;
 import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
 import com.definexjavaspringpracticum.finalcase.modals.Customer;
 import com.definexjavaspringpracticum.finalcase.repositories.CreditApplicationRepository;
+import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CreditApplicationService {
-    Date date = Date.valueOf(LocalDate.now());
+    private Date date;
     private CreditApplicationRepository creditApplicationRepository;
     private ModelMapperService modelMapperService;
 
@@ -26,6 +27,7 @@ public class CreditApplicationService {
     public CreditApplicationService(CreditApplicationRepository creditApplicationRepository, ModelMapperService modelMapperService) {
         this.creditApplicationRepository = creditApplicationRepository;
         this.modelMapperService = modelMapperService;
+        this.date = Date.valueOf(LocalDate.now());
     }
 
     public DataResult<List<CreditApplicationResponse>> getAllCreditApplications() {
@@ -34,4 +36,11 @@ public class CreditApplicationService {
         return new SuccessDataResult<>(result,"Credit applications are listed.");
     }
 
+    public DataResult<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
+        CreditApplication creditApplication = this.creditApplicationRepository.save(new CreditApplication(
+                this.date,
+                creditApplicationCreateRequest.getConfirmationInformation(),
+                creditApplicationCreateRequest.getLimit()));
+        return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is added.");
+    }
 }
