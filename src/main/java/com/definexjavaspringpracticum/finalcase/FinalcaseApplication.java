@@ -16,7 +16,6 @@ public class FinalcaseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FinalcaseApplication.class, args);
 	}
-
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
