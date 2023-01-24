@@ -6,9 +6,9 @@ import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.requests.CustomerUpdateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
-import com.definexjavaspringpracticum.finalcase.utilities.results.Result;
-import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorResult;
-import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorDataResult;
+import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +25,15 @@ public class CustomerService {
         this.modelMapperService = modelMapperService;
     }
 
-    public Result<List<CustomerResponse>> getAllCustomers() {
+    public DataResult<List<CustomerResponse>> getAllCustomers() {
         List<Customer> customers = this.customerRepository.findAll();
         List<CustomerResponse> result = customers.stream().map(customer -> this.modelMapperService.forDto().map(customer,CustomerResponse.class)).collect(Collectors.toList());
-        return new SuccessResult<>(result,"Customers are listed.");
+        return new SuccessDataResult<>(result,"Customers are listed.");
     }
 
-    public Result<CustomerResponse> createCustomer(CustomerCreateRequest customerCreateRequest){
+    public DataResult<CustomerResponse> createCustomer(CustomerCreateRequest customerCreateRequest){
         if(checkIfIdentityNumberExists(customerCreateRequest.getIdentityNumber())){
-            return new ErrorResult<>("Identity number is already exist.");
+            return new ErrorDataResult<>("Identity number is already exist.");
         }
         else{
             Customer customer = this.customerRepository.save(new Customer(
@@ -44,13 +44,13 @@ public class CustomerService {
                     customerCreateRequest.getPhoneNumber(),
                     customerCreateRequest.getBirthDate(),
                     customerCreateRequest.getCreditScore()));
-            return new SuccessResult<>(new CustomerResponse(customer),"Customer is added.");
+            return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is added.");
         }
     }
 
-    public Result<CustomerResponse> updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest){
+    public DataResult<CustomerResponse> updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest){
         if(!checkIfCustomerIdExists(customerId)){
-            return new ErrorResult<>("Customer id is not found.");
+            return new ErrorDataResult<>("Customer id is not found.");
         }
         else{
             Customer customer = this.customerRepository.findByCustomerId(customerId);
@@ -62,20 +62,20 @@ public class CustomerService {
             customer.setPhoneNumber(customerUpdateRequest.getPhoneNumber());
             customer.setCreditScore(customerUpdateRequest.getCreditScore());
             customerRepository.save(customer);
-            return new SuccessResult<>(new CustomerResponse(customer),"Customer is updated.");
+            return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is updated.");
         }
     }
 
 
 
-    public Result<CustomerResponse> delete(Long customerId){
+    public DataResult<CustomerResponse> delete(Long customerId){
         if(!checkIfCustomerIdExists(customerId)){
-            return new ErrorResult<>("Customer id is not found.");
+            return new ErrorDataResult<>("Customer id is not found.");
         }
         else{
             Customer customer = this.customerRepository.findByCustomerId(customerId);
             this.customerRepository.deleteById(customerId);
-            return new SuccessResult<>(new CustomerResponse(customer),"Customer is deleted.");
+            return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is deleted.");
         }
     }
 

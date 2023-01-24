@@ -1,18 +1,23 @@
 package com.definexjavaspringpracticum.finalcase.utilities.results;
 
-public class Result<T> {
-    private final T data;
-    private boolean success;
+public class Result {
+    private final boolean success;
     private String message;
 
-    public Result(T data, boolean success, String message) {
-        this.data = data;
+    public Result(boolean success) {
         this.success = success;
+    }
+
+    public Result(boolean success, String message) {
+        this(success);
         this.message = message;
     }
 
-    public Result(T data, boolean success) {
-        this.success = success;
-        this.data = data;
+    public boolean isSuccess() {
+        return this.success;
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 }
