@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/creditapplications")
+@CrossOrigin
 public class CreditApplicationController {
     private final CreditApplicationService creditApplicationService;
 
