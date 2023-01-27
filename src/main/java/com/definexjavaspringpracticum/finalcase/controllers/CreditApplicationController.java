@@ -39,7 +39,12 @@ public class CreditApplicationController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<DataResult<Object>> find(@RequestParam String identityNumber,@RequestParam Date birthDate){
+    public ResponseEntity<DataResult<List<Object>>> find(@RequestParam String identityNumber,Date birthDate){
         return new ResponseEntity<>(this.creditApplicationService.find(identityNumber,birthDate),HttpStatus.OK);
+    }
+
+    @GetMapping("{creditApplicationId}")
+    public ResponseEntity<DataResult<CreditApplicationResponse>> findByCreditApplicationId(@PathVariable Long creditApplicationId){
+        return new ResponseEntity<>(this.creditApplicationService.findByCreditApplicationId(creditApplicationId), HttpStatus.OK);
     }
 }

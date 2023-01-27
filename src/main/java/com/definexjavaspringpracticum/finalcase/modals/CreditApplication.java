@@ -29,6 +29,10 @@ public class CreditApplication {
     @JsonIgnore
     private Customer customer;
 
+    private Double customerMonthlyIncome;
+
+    private int customerCreditScore;
+
     public CreditApplication(Date createDate) {
         this.createDate = createDate;
     }

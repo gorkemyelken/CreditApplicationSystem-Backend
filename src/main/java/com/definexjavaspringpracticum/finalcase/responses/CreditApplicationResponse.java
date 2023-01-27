@@ -19,10 +19,16 @@ public class CreditApplicationResponse {
 
     private Customer customer;
 
+    private Double customerMonthlyIncome;
+
+    private int customerCreditScore;
+
     public CreditApplicationResponse(CreditApplication creditApplication) {
         this.confirmationInformation = creditApplication.getConfirmationInformation();
         this.limit = creditApplication.getLimit();
         this.createDate = creditApplication.getCreateDate();
         this.customer = creditApplication.getCustomer();
+        this.customerMonthlyIncome = creditApplication.getCustomerMonthlyIncome();
+        this.customerCreditScore = creditApplication.getCustomerCreditScore();
     }
 }

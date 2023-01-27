@@ -12,8 +12,6 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditApplicationCreateRequest {
-    private Date createDate;
-
     @NotNull
     private Customer customer;
 }

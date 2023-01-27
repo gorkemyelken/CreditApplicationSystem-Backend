@@ -11,12 +11,14 @@ public class CreditCondition {
 
     public CreditApplication checkCreditCondition(CreditApplication creditApplication, CreditApplicationCreateRequest creditApplicationCreateRequest){
         creditApplication.setCreateDate(date);
+        creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
+        creditApplication.setCustomerMonthlyIncome(creditApplicationCreateRequest.getCustomer().getMonthlyIncome());
+        creditApplication.setCustomerCreditScore(creditApplicationCreateRequest.getCustomer().getCreditScore());
         int creditLimitMultiplier = 4;
 
         //If the credit score is below 500, the user will be rejected. (Credit result: Rejected)
         if(creditApplicationCreateRequest.getCustomer().getCreditScore()<500){
             creditApplication.setConfirmationInformation("Rejected.");
-            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)0);
             return creditApplication;
         }
@@ -25,7 +27,6 @@ public class CreditCondition {
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 5000)) {
             creditApplication.setConfirmationInformation("Approved.");
-            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)10000);
             return creditApplication;
         }
@@ -35,7 +36,6 @@ public class CreditCondition {
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() >= 5000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() < 10000)){
             creditApplication.setConfirmationInformation("Approved.");
-            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit((double)20000);
             return creditApplication;
         }
@@ -44,17 +44,15 @@ public class CreditCondition {
                 && (creditApplicationCreateRequest.getCustomer().getCreditScore() < 1000)
                 && (creditApplicationCreateRequest.getCustomer().getMonthlyIncome() >= 10000)) {
             creditApplication.setConfirmationInformation("Approved.");
-            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit(creditApplicationCreateRequest.getCustomer().getMonthlyIncome() * creditLimitMultiplier / 2);
             return creditApplication;
         }
         //If the credit score is equal to or above 1000 points, the user will be approved and the user is assigned a limit equal to MONTHLY INCOME * CREDIT LIMIT MULTIPLIER. (Credit Result: Approved)
         else if((creditApplicationCreateRequest.getCustomer().getCreditScore() >= 1000)){
             creditApplication.setConfirmationInformation("Approved.");
-            creditApplication.setCustomer(creditApplicationCreateRequest.getCustomer());
             creditApplication.setLimit(creditApplication.getCustomer().getMonthlyIncome() * creditLimitMultiplier);
             return creditApplication;
         }
-        return null;
+        return creditApplication;
     }
 }

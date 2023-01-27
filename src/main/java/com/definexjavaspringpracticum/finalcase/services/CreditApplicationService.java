@@ -6,6 +6,7 @@ import com.definexjavaspringpracticum.finalcase.repositories.CreditApplicationRe
 import com.definexjavaspringpracticum.finalcase.repositories.CustomerRepository;
 import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
+import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.constants.CreditCondition;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
@@ -59,8 +60,14 @@ public class CreditApplicationService {
         }
     }
 
-    public DataResult<Object> find(String identityNumber, Date birthDate){
+    public DataResult<List<Object>> find(String identityNumber, Date birthDate){
         return new SuccessDataResult<>(this.creditApplicationRepository.findByIdentityNumberAndBirthDate(identityNumber,birthDate),"Data listed.");
+    }
+
+    public DataResult<CreditApplicationResponse> findByCreditApplicationId(Long creditApplicationId){
+        CreditApplication creditApplication = this.creditApplicationRepository.findByCreditApplicationId(creditApplicationId);
+        CreditApplicationResponse result = this.modelMapperService.forDto().map(creditApplication, CreditApplicationResponse.class);
+        return new SuccessDataResult<>(result, "Credit application is listed.");
     }
 
     private boolean checkIfCreditApplicationIdExist(Long creditApplicationId) {

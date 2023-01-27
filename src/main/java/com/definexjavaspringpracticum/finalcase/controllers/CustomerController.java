@@ -41,4 +41,9 @@ public class CustomerController {
     public ResponseEntity<DataResult<CustomerResponse>> delete(@PathVariable Long customerId){
         return new ResponseEntity<>(this.customerService.delete(customerId), HttpStatus.OK);
     }
+
+    @GetMapping("/{customerId}")
+    public ResponseEntity<DataResult<CustomerResponse>> findByCustomerId(@PathVariable Long customerId){
+        return new ResponseEntity<>(this.customerService.findByCustomerId(customerId), HttpStatus.OK);
+    }
 }
