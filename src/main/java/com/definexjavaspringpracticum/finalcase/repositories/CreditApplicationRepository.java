@@ -1,7 +1,6 @@
 package com.definexjavaspringpracticum.finalcase.repositories;
 
-import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
-import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import com.definexjavaspringpracticum.finalcase.entities.CreditApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

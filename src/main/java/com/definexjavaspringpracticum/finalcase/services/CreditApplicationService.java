@@ -1,12 +1,11 @@
 package com.definexjavaspringpracticum.finalcase.services;
 
-import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
-import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import com.definexjavaspringpracticum.finalcase.entities.CreditApplication;
+import com.definexjavaspringpracticum.finalcase.entities.Customer;
 import com.definexjavaspringpracticum.finalcase.repositories.CreditApplicationRepository;
 import com.definexjavaspringpracticum.finalcase.repositories.CustomerRepository;
 import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
-import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.constants.CreditCondition;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;

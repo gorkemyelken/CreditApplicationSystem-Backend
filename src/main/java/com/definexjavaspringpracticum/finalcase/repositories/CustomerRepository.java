@@ -1,6 +1,6 @@
 package com.definexjavaspringpracticum.finalcase.repositories;
 
-import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import com.definexjavaspringpracticum.finalcase.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

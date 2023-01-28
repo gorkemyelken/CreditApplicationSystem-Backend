@@ -1,6 +1,6 @@
 package com.definexjavaspringpracticum.finalcase.services;
 
-import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import com.definexjavaspringpracticum.finalcase.entities.Customer;
 import com.definexjavaspringpracticum.finalcase.repositories.CustomerRepository;
 import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.requests.CustomerUpdateRequest;

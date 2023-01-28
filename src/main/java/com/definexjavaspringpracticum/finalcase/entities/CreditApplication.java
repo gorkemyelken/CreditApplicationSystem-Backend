@@ -1,4 +1,4 @@
-package com.definexjavaspringpracticum.finalcase.modals;
+package com.definexjavaspringpracticum.finalcase.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

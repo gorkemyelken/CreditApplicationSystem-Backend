@@ -1,6 +1,6 @@
 package com.definexjavaspringpracticum.finalcase.services.constants;
 
-import com.definexjavaspringpracticum.finalcase.modals.CreditApplication;
+import com.definexjavaspringpracticum.finalcase.entities.CreditApplication;
 import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
 
 import java.sql.Date;

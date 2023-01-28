@@ -1,6 +1,6 @@
 package com.definexjavaspringpracticum.finalcase.responses;
 
-import com.definexjavaspringpracticum.finalcase.modals.Customer;
+import com.definexjavaspringpracticum.finalcase.entities.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
