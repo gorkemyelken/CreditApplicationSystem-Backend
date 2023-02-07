@@ -11,11 +11,19 @@
 
 📌 If the credit score is between 500 and 1000, the monthly income is below 5000 TL, the customer's credit application is approved and a 10,000 TL limit is assigned to the customer. (Credit Result: Approved)
 
+If the customer has given deposit, 10% of the deposit amount is added to the credit limit.
+
 📌 If the credit score is between 500 and 1000, the monthly income is between 5000 TL and 10,000 TL, the credit application of the customer is approved and a limit of 20,000 TL is assigned to the customer. (Credit Result: Approved)
+
+If the customer has given deposit, 20% of the deposit amount is added to the credit limit.
 
 📌 If the credit score is between 500 and 1000, the monthly income is over 10.000 TL, the credit application of the customer is approved and a limit of MONTHLY INCOME * CREDIT LIMIT MULTIPLIER/2 is assigned to the customer. (Credit Result: Approved)
 
+If the customer has given deposit, 25% of the deposit amount is added to the credit limit.
+
 📌 If the credit score is equal to or above 1000, the credit application of the customer is approved and a limit of MONTHLY INCOME * CREDIT LIMIT MULTIPLIER is assigned to the customer. (Credit Result: Approved)
+
+If the customer has given deposit, 50% of the deposit amount is added to the credit limit.
 
 📌 As a result of the conclusion of the credit application, the application is recorded in the database. Afterwards, an informative SMS is sent to the relevant phone number; the approval status information (rejection or approval) and limit information is returned from the endpoint.
 
