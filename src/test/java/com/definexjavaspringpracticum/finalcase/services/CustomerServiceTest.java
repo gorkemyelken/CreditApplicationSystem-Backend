@@ -48,7 +48,9 @@ public class CustomerServiceTest {
                 customerCreateRequest.getPhoneNumber(),
                 customerCreateRequest.getBirthDate(),
                 customerCreateRequest.getCreditScore());
+        customer.setCustomerId(1L);
 
+        Mockito.when(customerRepository.existsByIdentityNumber(customerCreateRequest.getIdentityNumber())).thenReturn(false);
         Mockito.when(customerRepository.save(customer)).thenReturn(customer);
 
         DataResult<CustomerResponse> result = customerService.createCustomer(customerCreateRequest);

@@ -7,7 +7,6 @@ import com.definexjavaspringpracticum.finalcase.services.CustomerService;
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

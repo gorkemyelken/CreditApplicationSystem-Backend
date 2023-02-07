@@ -1,9 +1,7 @@
 package com.definexjavaspringpracticum.finalcase.controllers;
 
 import com.definexjavaspringpracticum.finalcase.requests.CreditApplicationCreateRequest;
-import com.definexjavaspringpracticum.finalcase.requests.CustomerCreateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CreditApplicationResponse;
-import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.services.CreditApplicationService;
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
 import org.junit.Before;

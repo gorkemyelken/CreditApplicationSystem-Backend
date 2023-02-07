@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,14 +37,16 @@ public class CustomerService {
             return new ErrorDataResult<>("Identity number is already exist.");
         }
         else{
-            Customer customer = this.customerRepository.save(new Customer(
+            Random random = new Random();
+            Customer customer = new Customer(
                     customerCreateRequest.getIdentityNumber(),
                     customerCreateRequest.getFirstName(),
                     customerCreateRequest.getLastName(),
                     customerCreateRequest.getMonthlyIncome(),
                     customerCreateRequest.getPhoneNumber(),
                     customerCreateRequest.getBirthDate(),
-                    customerCreateRequest.getCreditScore()));
+                    random.nextInt(1001));
+            this.customerRepository.save(customer);
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is added.");
         }
     }
@@ -60,7 +63,7 @@ public class CustomerService {
             customer.setMonthlyIncome(customerUpdateRequest.getMonthlyIncome());
             customer.setIdentityNumber(customerUpdateRequest.getIdentityNumber());
             customer.setPhoneNumber(customerUpdateRequest.getPhoneNumber());
-            customer.setCreditScore(customerUpdateRequest.getCreditScore());
+            customer.setCreditScore(customer.getCreditScore());
             customerRepository.save(customer);
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is updated.");
         }

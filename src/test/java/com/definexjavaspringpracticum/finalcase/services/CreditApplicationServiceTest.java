@@ -10,17 +10,9 @@ import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperSer
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
