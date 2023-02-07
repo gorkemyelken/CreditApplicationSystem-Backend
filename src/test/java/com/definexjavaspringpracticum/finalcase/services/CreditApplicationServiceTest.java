@@ -67,7 +67,7 @@ public class CreditApplicationServiceTest {
         Mockito.when(creditApplicationRepository.existsByCreditApplicationId(creditApplicationId)).thenReturn(true);
         Mockito.when(creditApplicationRepository.findByCreditApplicationId(creditApplicationId)).thenReturn(creditApplication);
 
-        DataResult<CreditApplicationResponse> result = creditApplicationService.delete(creditApplicationId);
+        DataResult<CreditApplicationResponse> result = creditApplicationService.deleteCreditApplication(creditApplicationId);
         assertEquals("Credit application is deleted.", result.getMessage());
     }
 }

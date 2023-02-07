@@ -79,7 +79,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void findByCustomerId() {
+    public void testFindByCustomerId() {
         Long customerId = 1L;
         CustomerResponse customerResponse = new CustomerResponse();
         DataResult<CustomerResponse> dataResult = new DataResult<>(customerResponse, true);
@@ -91,7 +91,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void findByCustomerIdentityNumber() {
+    public void testFindByCustomerIdentityNumber() {
         String identityNumber = "12345678910";
         CustomerResponse customerResponse = new CustomerResponse();
         DataResult<CustomerResponse> dataResult = new DataResult<>(customerResponse, true);

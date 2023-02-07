@@ -34,8 +34,8 @@ public class CreditApplicationController {
     }
 
     @DeleteMapping("/{creditApplicationId}")
-    public ResponseEntity<DataResult<CreditApplicationResponse>> delete(@PathVariable Long creditApplicationId){
-        return new ResponseEntity<>(this.creditApplicationService.delete(creditApplicationId),HttpStatus.OK);
+    public ResponseEntity<DataResult<CreditApplicationResponse>> deleteCreditApplication(@PathVariable Long creditApplicationId){
+        return new ResponseEntity<>(this.creditApplicationService.deleteCreditApplication(creditApplicationId),HttpStatus.OK);
     }
 
     @GetMapping("/find")

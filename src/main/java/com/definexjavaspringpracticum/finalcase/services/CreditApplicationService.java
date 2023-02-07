@@ -48,7 +48,7 @@ public class CreditApplicationService {
         return new SuccessDataResult<>(new CreditApplicationResponse(result),"Credit application is added.");
     }
 
-    public DataResult<CreditApplicationResponse> delete(Long creditApplicationId){
+    public DataResult<CreditApplicationResponse> deleteCreditApplication(Long creditApplicationId){
         if(!checkIfCreditApplicationIdExist(creditApplicationId)){
             return new ErrorDataResult<>("Credit application id is not found.");
         }
