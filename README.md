@@ -168,7 +168,7 @@ Customer  | customer
 
 ### EER Diagram
 ---
-![EER Diagram](https://user-images.githubusercontent.com/60850092/217255849-985dc01b-7f55-480d-8841-db46c52c4bdb.png)
+![EER Diagram](https://user-images.githubusercontent.com/60850092/217336097-5567b398-77a2-4859-b821-041971ede2fb.png)
 
 ### Contact
 ---
