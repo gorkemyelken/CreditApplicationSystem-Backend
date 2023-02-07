@@ -36,11 +36,12 @@ public class CreditApplicationServiceTest {
     @Test
     public void testCreateCreditApplication() {
         Customer customer = new Customer("12345678901", "TestFirstName", "TestLastName", 5000.0, "5555555555", Date.valueOf("1998-09-06"), 650);
-        CreditApplicationCreateRequest creditApplicationCreateRequest = new CreditApplicationCreateRequest(customer);
+        CreditApplicationCreateRequest creditApplicationCreateRequest = new CreditApplicationCreateRequest();
+        creditApplicationCreateRequest.setCustomer(customer);
 
         Mockito.when(customerRepository.existsByCustomerId(customer.getCustomerId())).thenReturn(true);
 
-        CreditApplication creditApplication = new CreditApplication(1L,"Approved.",10000.0,Date.valueOf("2023-02-07"),customer,5000.0,650);
+        CreditApplication creditApplication = new CreditApplication(1L,"Approved.",10000.0,Date.valueOf("2023-02-07"),1000.0,customer,5000.0,650);
 
         Mockito.when(creditApplicationRepository.save(creditApplication)).thenReturn(creditApplication);
 
@@ -53,7 +54,7 @@ public class CreditApplicationServiceTest {
     @Test
     public void testDeleteCreditApplication() {
         Customer customer = new Customer("12345678901", "TestFirstName", "TestLastName", 5000.0, "5555555555", Date.valueOf("1998-09-06"), 650);
-        CreditApplication creditApplication = new CreditApplication(1L,"Approved.",10000.0,Date.valueOf("2023-02-07"),customer,5000.0,650);
+        CreditApplication creditApplication = new CreditApplication(1L,"Approved.",10000.0,Date.valueOf("2023-02-07"),1000.0,customer,5000.0,650);
         Long creditApplicationId = creditApplication.getCreditApplicationId();
 
         Mockito.when(creditApplicationRepository.existsByCreditApplicationId(creditApplicationId)).thenReturn(true);

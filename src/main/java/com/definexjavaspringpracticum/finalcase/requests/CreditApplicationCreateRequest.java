@@ -15,4 +15,5 @@ public class CreditApplicationCreateRequest {
     private Customer customer;
 
     private Double deposit;
+
 }
