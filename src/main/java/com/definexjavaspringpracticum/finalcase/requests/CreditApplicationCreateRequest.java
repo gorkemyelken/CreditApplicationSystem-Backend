@@ -13,4 +13,6 @@ import javax.validation.constraints.NotNull;
 public class CreditApplicationCreateRequest {
     @NotNull
     private Customer customer;
+
+    private Double deposit;
 }

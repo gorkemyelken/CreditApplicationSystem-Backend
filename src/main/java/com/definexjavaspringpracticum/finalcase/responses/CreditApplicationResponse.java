@@ -23,6 +23,8 @@ public class CreditApplicationResponse {
 
     private int customerCreditScore;
 
+    private Double deposit;
+
     public CreditApplicationResponse(CreditApplication creditApplication) {
         this.confirmationInformation = creditApplication.getConfirmationInformation();
         this.limit = creditApplication.getLimit();
@@ -30,5 +32,6 @@ public class CreditApplicationResponse {
         this.customer = creditApplication.getCustomer();
         this.customerMonthlyIncome = creditApplication.getCustomerMonthlyIncome();
         this.customerCreditScore = creditApplication.getCustomerCreditScore();
+        this.deposit = creditApplication.getDeposit();
     }
 }

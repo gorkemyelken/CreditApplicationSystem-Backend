@@ -21,8 +21,9 @@ public class CreditApplication {
     private String confirmationInformation; // Approved or Rejected
 
     private Double limit;
-
     private Date createDate;
+
+    private Double deposit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
