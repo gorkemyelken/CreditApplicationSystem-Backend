@@ -180,6 +180,10 @@ Customer  | customer
 ---
 ![Documentation](https://user-images.githubusercontent.com/60850092/217252263-f121060a-68fd-4b62-bb4d-bc80cc4b5e1a.png)
 
+### EER Diagram
+---
+![EER Diagram](https://user-images.githubusercontent.com/60850092/217255849-985dc01b-7f55-480d-8841-db46c52c4bdb.png)
+
 ### Contact
 ---
 
