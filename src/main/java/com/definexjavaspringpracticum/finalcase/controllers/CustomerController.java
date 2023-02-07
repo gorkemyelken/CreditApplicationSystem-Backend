@@ -46,4 +46,9 @@ public class CustomerController {
     public ResponseEntity<DataResult<CustomerResponse>> findByCustomerId(@PathVariable Long customerId){
         return new ResponseEntity<>(this.customerService.findByCustomerId(customerId), HttpStatus.OK);
     }
+
+    @GetMapping("/findbyidentitynumber")
+    public ResponseEntity<DataResult<CustomerResponse>> findByCustomerIdentityNumber(@RequestParam String identityNumber){
+        return new ResponseEntity<>(this.customerService.findByCustomerIdentityNumber(identityNumber), HttpStatus.OK);
+    }
 }

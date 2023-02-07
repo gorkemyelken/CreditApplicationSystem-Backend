@@ -85,6 +85,12 @@ public class CustomerService {
         return new SuccessDataResult<>(result, "Customer is listed.");
     }
 
+    public DataResult<CustomerResponse> findByCustomerIdentityNumber(String identityNumber){
+        Customer customer = this.customerRepository.findByIdentityNumber(identityNumber);
+        CustomerResponse result = this.modelMapperService.forDto().map(customer, CustomerResponse.class);
+        return new SuccessDataResult<>(result, "Customer is listed.");
+    }
+
     private boolean checkIfIdentityNumberExists(String identityNumber) {
         return this.customerRepository.existsByIdentityNumber(identityNumber);
     }
