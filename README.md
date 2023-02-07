@@ -105,76 +105,53 @@ Customer  | customer
 
 #### Get all customers
 
-```http
-  GET /customers
-```
-
+      GET /customers
+      
 #### Create customer
 
-```http
-  POST /customers
-  Required body: Customer customer
-```
+      POST /customers
+      Required body: Customer customer
 
 #### Update customer
 
-```http
-  PUT /customers/{customerId}
-```
+      PUT /customers/{customerId}
 
 #### Delete customer
 
-```http
-  DELETE /customers/{customerId}
-```
+      DELETE /customers/{customerId}
 
 #### Find by customer id
 
-```http
-  GET /customers/{customerId}
-```
+      GET /customers/{customerId}
 
 #### Find by identity number
 
-```http
-  GET /customers/findbyidentitynumber
-  Required Parameter: String identityNumber 
-```
-
+      GET /customers/findbyidentitynumber
+      Required Parameter: String identityNumber 
 
 *   [Credit Application Controller](https://github.com/gorkemyelken/DefineXJavaSpringPracticumFinalCase/blob/master/src/main/java/com/definexjavaspringpracticum/finalcase/controllers/CreditApplicationController.java)
 
 #### Get all credit applications
 
-```http
-  GET /creditapplications
-```
+      GET /creditapplications
 
 #### Create credit application
 
-```http
-  POST /creditapplications
-  Required body: CreditApplication creditApplication
-```
+      POST /creditapplications
+      Required body: CreditApplication creditApplication
 
 #### Delete credit application
 
-```http
-  DELETE /creditapplications/{creditApplicationId}
-```
+      DELETE /creditapplications/{creditApplicationId}
 
 #### Find credit application
 
-```http
-  GET /creditapplications/
-  Required Parameters: String identityNumber, Date birthDate
-```
+      GET /creditapplications/
+      Required Parameters: String identityNumber, Date birthDate
 
 #### Find by credit application id
 
-```http
-  GET /creditapplications/{creditApplicationId}
-```
+      GET /creditapplications/{creditApplicationId}
 
 ### Documentation
 ---
