@@ -7,14 +7,11 @@ import com.definexjavaspringpracticum.finalcase.requests.CustomerUpdateRequest;
 import com.definexjavaspringpracticum.finalcase.responses.CustomerResponse;
 import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperService;
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -85,7 +82,7 @@ public class CustomerServiceTest {
         Mockito.when(customerRepository.existsByCustomerId(customerId)).thenReturn(true);
         Mockito.when(customerRepository.findByCustomerId(customerId)).thenReturn(customer);
 
-        DataResult<CustomerResponse> result = customerService.delete(customerId);
+        DataResult<CustomerResponse> result = customerService.deleteCustomer(customerId);
         assertEquals("Customer is deleted.", result.getMessage());
     }
 }

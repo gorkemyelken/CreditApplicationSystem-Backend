@@ -38,8 +38,8 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{customerId}")
-    public ResponseEntity<DataResult<CustomerResponse>> delete(@PathVariable Long customerId){
-        return new ResponseEntity<>(this.customerService.delete(customerId), HttpStatus.OK);
+    public ResponseEntity<DataResult<CustomerResponse>> deleteCustomer(@PathVariable Long customerId){
+        return new ResponseEntity<>(this.customerService.deleteCustomer(customerId), HttpStatus.OK);
     }
 
     @GetMapping("/{customerId}")

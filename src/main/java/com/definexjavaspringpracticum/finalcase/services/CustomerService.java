@@ -68,7 +68,7 @@ public class CustomerService {
 
 
 
-    public DataResult<CustomerResponse> delete(Long customerId){
+    public DataResult<CustomerResponse> deleteCustomer(Long customerId){
         if(!checkIfCustomerIdExists(customerId)){
             return new ErrorDataResult<>("Customer id is not found.");
         }
