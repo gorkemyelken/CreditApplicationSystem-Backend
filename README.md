@@ -84,6 +84,7 @@ Long  | creditApplicationId
 String  | confirmationInformation 
 Double  | limit 
 Date  | createDate 
+Double  | deposit 
 Customer  | customer 
 
 ### 🛠️ [Services](https://github.com/gorkemyelken/DefineXJavaSpringPracticumFinalCase/tree/master/src/main/java/com/definexjavaspringpracticum/finalcase/services)
