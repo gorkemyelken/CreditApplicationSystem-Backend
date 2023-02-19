@@ -23,33 +23,37 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<DataResult<List<CustomerResponse>>> getAllCustomers(){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Get all customers.");
+        log.debug("[{}][getAllCustomers] -> request: {}", this.getClass().getSimpleName(), "Get all customers.");
         return new ResponseEntity<>(this.customerService.getAllCustomers(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<DataResult<CustomerResponse>> createCustomer(@RequestBody CustomerCreateRequest customerCreateRequest){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Create customer.");
+        log.debug("[{}][createCustomer] -> request: {}", this.getClass().getSimpleName(), "Create customer.");
         return new ResponseEntity<>(this.customerService.createCustomer(customerCreateRequest),HttpStatus.CREATED );
     }
 
     @PutMapping("/{customerId}")
     public ResponseEntity<DataResult<CustomerResponse>> updateCustomer(@PathVariable Long customerId,@RequestBody CustomerUpdateRequest customerUpdateRequest){
+        log.debug("[{}][updateCustomer] -> request: {}", this.getClass().getSimpleName(), "Update customer.");
         return new ResponseEntity<>(this.customerService.updateCustomer(customerId,customerUpdateRequest),HttpStatus.OK );
     }
 
     @DeleteMapping("/{customerId}")
     public ResponseEntity<DataResult<CustomerResponse>> deleteCustomer(@PathVariable Long customerId){
+        log.debug("[{}][deleteCustomer] -> request: {}", this.getClass().getSimpleName(), "Delete customer.");
         return new ResponseEntity<>(this.customerService.deleteCustomer(customerId), HttpStatus.OK);
     }
 
     @GetMapping("/{customerId}")
     public ResponseEntity<DataResult<CustomerResponse>> findByCustomerId(@PathVariable Long customerId){
+        log.debug("[{}][findByCustomerId] -> request: {}", this.getClass().getSimpleName(), "Find by customer id.");
         return new ResponseEntity<>(this.customerService.findByCustomerId(customerId), HttpStatus.OK);
     }
 
     @GetMapping("/findbyidentitynumber")
     public ResponseEntity<DataResult<CustomerResponse>> findByCustomerIdentityNumber(@RequestParam String identityNumber){
+        log.debug("[{}][findByCustomerIdentityNumber] -> request: {}", this.getClass().getSimpleName(), "Find by customer identity number.");
         return new ResponseEntity<>(this.customerService.findByCustomerIdentityNumber(identityNumber), HttpStatus.OK);
     }
 }
