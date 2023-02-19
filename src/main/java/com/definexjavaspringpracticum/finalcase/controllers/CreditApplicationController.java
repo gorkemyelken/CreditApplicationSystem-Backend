@@ -23,31 +23,31 @@ public class CreditApplicationController {
 
     @GetMapping
     public ResponseEntity<DataResult<List<CreditApplicationResponse>>> getAllCreditApplications(){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Get all credit applications.");
+        log.debug("[{}][getAllCreditApplications] -> request: {}", this.getClass().getSimpleName(), "Get all credit applications.");
         return new ResponseEntity<>(this.creditApplicationService.getAllCreditApplications(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<DataResult<CreditApplicationResponse>> createCreditApplication(@RequestBody CreditApplicationCreateRequest creditApplicationCreateRequest){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Create credit application.");
+        log.debug("[{}][createCreditApplication] -> request: {}", this.getClass().getSimpleName(), "Create credit application.");
         return new ResponseEntity<>(this.creditApplicationService.createCreditApplication(creditApplicationCreateRequest),HttpStatus.CREATED );
     }
 
     @DeleteMapping("/{creditApplicationId}")
     public ResponseEntity<DataResult<CreditApplicationResponse>> deleteCreditApplication(@PathVariable Long creditApplicationId){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Delete credit application.");
+        log.debug("[{}][deleteCreditApplication] -> request: {}", this.getClass().getSimpleName(), "Delete credit application.");
         return new ResponseEntity<>(this.creditApplicationService.deleteCreditApplication(creditApplicationId),HttpStatus.OK);
     }
 
     @GetMapping("/find")
     public ResponseEntity<DataResult<List<Object>>> find(@RequestParam String identityNumber,Date birthDate){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Find by identity number and birth date.");
+        log.debug("[{}][find] -> request: {}", this.getClass().getSimpleName(), "Find by identity number and birth date.");
         return new ResponseEntity<>(this.creditApplicationService.find(identityNumber,birthDate),HttpStatus.OK);
     }
 
     @GetMapping("{creditApplicationId}")
     public ResponseEntity<DataResult<CreditApplicationResponse>> findByCreditApplicationId(@PathVariable Long creditApplicationId){
-        log.debug("[{}][createProduct] -> request: {}", this.getClass().getSimpleName(), "Find by credit application id.");
+        log.debug("[{}][findByCreditApplicationId] -> request: {}", this.getClass().getSimpleName(), "Find by credit application id.");
         return new ResponseEntity<>(this.creditApplicationService.findByCreditApplicationId(creditApplicationId), HttpStatus.OK);
     }
 }
