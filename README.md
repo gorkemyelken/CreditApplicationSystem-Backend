@@ -53,10 +53,12 @@ Technologies used in the project:
 
 *   Java
 *   Spring Boot
+*   Spring Data JPA
 *   N-Tier Architecture
 *   Maven
 *   AOP 
 *   MySQL
+*   JUnit, Mockito(Unit Testing)
 *   Lombok
 *   Swagger
 
