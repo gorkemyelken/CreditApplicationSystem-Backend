@@ -25,13 +25,17 @@ public class CustomerService {
     private final ModelMapperService modelMapperService;
 
     public DataResult<List<CustomerResponse>> getAllCustomers() {
+        log.debug("[{}][getAllCustomers] -> request: {}", this.getClass().getSimpleName(), "Get all customers.");
         List<Customer> customers = this.customerRepository.findAll();
         List<CustomerResponse> result = customers.stream().map(customer -> this.modelMapperService.forDto().map(customer,CustomerResponse.class)).collect(Collectors.toList());
+        log.debug("[{}][getAllCustomers] -> response: {}", this.getClass().getSimpleName(), !result.isEmpty());
         return new SuccessDataResult<>(result,"Customers are listed.");
     }
 
     public DataResult<CustomerResponse> createCustomer(CustomerCreateRequest customerCreateRequest){
+        log.debug("[{}][createCustomer] -> request: {}", this.getClass().getSimpleName(), customerCreateRequest);
         if(checkIfIdentityNumberExists(customerCreateRequest.getIdentityNumber())){
+            log.debug("[{}][createCustomer] -> response: {}", this.getClass().getSimpleName(), "Identity number is already exist.");
             return new ErrorDataResult<>("Identity number is already exist.");
         }
         else{
@@ -45,12 +49,15 @@ public class CustomerService {
                     customerCreateRequest.getBirthDate(),
                     random.nextInt(1001));
             this.customerRepository.save(customer);
+            log.debug("[{}][createCustomer] -> response: {}", this.getClass().getSimpleName(), customer);
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is added.");
         }
     }
 
     public DataResult<CustomerResponse> updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest){
+        log.debug("[{}][updateCustomer] -> request: {}", this.getClass().getSimpleName(), customerUpdateRequest);
         if(!checkIfCustomerIdExists(customerId)){
+            log.debug("[{}][updateCustomer] -> response: {}", this.getClass().getSimpleName(), "Customer id is not found.");
             return new ErrorDataResult<>("Customer id is not found.");
         }
         else{
@@ -63,6 +70,7 @@ public class CustomerService {
             customer.setPhoneNumber(customerUpdateRequest.getPhoneNumber());
             customer.setCreditScore(customer.getCreditScore());
             customerRepository.save(customer);
+            log.debug("[{}][updateCustomer] -> response: {}", this.getClass().getSimpleName(), customer);
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is updated.");
         }
     }
@@ -70,25 +78,32 @@ public class CustomerService {
 
 
     public DataResult<CustomerResponse> deleteCustomer(Long customerId){
+        log.debug("[{}][deleteCustomer] -> request: {}", this.getClass().getSimpleName(), "Delete customer.");
         if(!checkIfCustomerIdExists(customerId)){
+            log.debug("[{}][deleteCustomer] -> response: {}", this.getClass().getSimpleName(), "Customer id is not found.");
             return new ErrorDataResult<>("Customer id is not found.");
         }
         else{
             Customer customer = this.customerRepository.findByCustomerId(customerId);
             this.customerRepository.deleteById(customerId);
+            log.debug("[{}][deleteCustomer] -> response: {}", this.getClass().getSimpleName(), customer);
             return new SuccessDataResult<>(new CustomerResponse(customer),"Customer is deleted.");
         }
     }
 
     public DataResult<CustomerResponse> findByCustomerId(Long customerId){
+        log.debug("[{}][findByCustomerId] -> request: {}", this.getClass().getSimpleName(), "Find by customer id.");
         Customer customer = this.customerRepository.findByCustomerId(customerId);
         CustomerResponse result = this.modelMapperService.forDto().map(customer, CustomerResponse.class);
+        log.debug("[{}][findByCustomerId] -> response: {}", this.getClass().getSimpleName(), result);
         return new SuccessDataResult<>(result, "Customer is listed.");
     }
 
     public DataResult<CustomerResponse> findByCustomerIdentityNumber(String identityNumber){
+        log.debug("[{}][findByCustomerIdentityNumber] -> request: {}", this.getClass().getSimpleName(), "Find by customer identity number.");
         Customer customer = this.customerRepository.findByIdentityNumber(identityNumber);
         CustomerResponse result = this.modelMapperService.forDto().map(customer, CustomerResponse.class);
+        log.debug("[{}][findByCustomerIdentityNumber] -> response: {}", this.getClass().getSimpleName(), result);
         return new SuccessDataResult<>(result, "Customer is listed.");
     }
 

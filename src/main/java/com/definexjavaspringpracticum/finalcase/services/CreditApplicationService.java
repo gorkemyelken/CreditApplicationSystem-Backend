@@ -38,6 +38,7 @@ public class CreditApplicationService {
     public DataResult<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
         log.debug("[{}][createCreditApplication] -> request: {}", this.getClass().getSimpleName(), creditApplicationCreateRequest);
         if(!checkIfCreditApplicationCustomerExist(creditApplicationCreateRequest.getCustomer())){
+            log.debug("[{}][createCreditApplication] -> response: {}", this.getClass().getSimpleName(), "Customer is not found.");
             return new ErrorDataResult<>("Customer is not found.");
         }
         CreditApplication creditApplication = new CreditApplication();
