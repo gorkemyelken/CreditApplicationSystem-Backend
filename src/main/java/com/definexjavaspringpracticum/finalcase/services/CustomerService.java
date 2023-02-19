@@ -28,7 +28,7 @@ public class CustomerService {
         log.debug("[{}][getAllCustomers] -> request: {}", this.getClass().getSimpleName(), "Get all customers.");
         List<Customer> customers = this.customerRepository.findAll();
         List<CustomerResponse> result = customers.stream().map(customer -> this.modelMapperService.forDto().map(customer,CustomerResponse.class)).collect(Collectors.toList());
-        log.debug("[{}][getAllCustomers] -> response: {}", this.getClass().getSimpleName(), !result.isEmpty());
+        log.debug("[{}][getAllCustomers] -> response: {}", this.getClass().getSimpleName(), result.isEmpty() ? "Customers are not listed." : "Customers are listed.");
         return new SuccessDataResult<>(result,"Customers are listed.");
     }
 

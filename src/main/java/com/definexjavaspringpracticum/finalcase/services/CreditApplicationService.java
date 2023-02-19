@@ -31,7 +31,7 @@ public class CreditApplicationService {
         log.debug("[{}][getAllCreditApplications] -> request: {}", this.getClass().getSimpleName(), "Get all credit applications.");
         List<CreditApplication> creditApplications = this.creditApplicationRepository.findAll();
         List<CreditApplicationResponse> result = creditApplications.stream().map(creditApplication -> this.modelMapperService.forDto().map(creditApplication,CreditApplicationResponse.class)).collect(Collectors.toList());
-        log.debug("[{}][getAllCreditApplications] -> response: {}", this.getClass().getSimpleName(), !result.isEmpty());
+        log.debug("[{}][getAllCreditApplications] -> response: {}", this.getClass().getSimpleName(), result.isEmpty() ? "Credit applications are not listed." : "Credit applications are listed.");
         return new SuccessDataResult<>(result,"Credit applications are listed.");
     }
 
