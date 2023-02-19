@@ -2,9 +2,7 @@ package com.definexjavaspringpracticum.finalcase.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -13,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name= "customer")
 @Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","creditApplications"})
@@ -35,6 +34,7 @@ public class Customer {
 
     private int creditScore;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore
     private List<CreditApplication> creditApplications;

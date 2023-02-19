@@ -1,9 +1,7 @@
 package com.definexjavaspringpracticum.finalcase.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,6 +9,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "credit_application")
 @Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditApplication {
@@ -25,6 +24,7 @@ public class CreditApplication {
 
     private Double deposit;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     @JsonIgnore

@@ -9,7 +9,8 @@ import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperSer
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
 import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorDataResult;
 import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessDataResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +18,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ModelMapperService modelMapperService;
-    @Autowired
-    public CustomerService(CustomerRepository customerRepository, ModelMapperService modelMapperService) {
-        this.customerRepository = customerRepository;
-        this.modelMapperService = modelMapperService;
-    }
 
     public DataResult<List<CustomerResponse>> getAllCustomers() {
         List<Customer> customers = this.customerRepository.findAll();

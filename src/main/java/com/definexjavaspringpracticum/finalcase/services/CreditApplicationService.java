@@ -11,7 +11,8 @@ import com.definexjavaspringpracticum.finalcase.utilities.mapping.ModelMapperSer
 import com.definexjavaspringpracticum.finalcase.utilities.results.DataResult;
 import com.definexjavaspringpracticum.finalcase.utilities.results.ErrorDataResult;
 import com.definexjavaspringpracticum.finalcase.utilities.results.SuccessDataResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -19,25 +20,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class CreditApplicationService {
     private final CreditApplicationRepository creditApplicationRepository;
     private final CustomerRepository customerRepository;
     private final ModelMapperService modelMapperService;
 
-    @Autowired
-    public CreditApplicationService(CreditApplicationRepository creditApplicationRepository, CustomerRepository customerRepository, ModelMapperService modelMapperService) {
-        this.creditApplicationRepository = creditApplicationRepository;
-        this.customerRepository = customerRepository;
-        this.modelMapperService = modelMapperService;
-    }
-
     public DataResult<List<CreditApplicationResponse>> getAllCreditApplications() {
+        log.debug("[{}][getAllCreditApplications] -> request: {}", this.getClass().getSimpleName(), "Get all credit applications.");
         List<CreditApplication> creditApplications = this.creditApplicationRepository.findAll();
         List<CreditApplicationResponse> result = creditApplications.stream().map(creditApplication -> this.modelMapperService.forDto().map(creditApplication,CreditApplicationResponse.class)).collect(Collectors.toList());
+        log.debug("[{}][getAllCreditApplications] -> response: {}", this.getClass().getSimpleName(), !result.isEmpty());
         return new SuccessDataResult<>(result,"Credit applications are listed.");
     }
 
     public DataResult<CreditApplicationResponse> createCreditApplication(CreditApplicationCreateRequest creditApplicationCreateRequest){
+        log.debug("[{}][createCreditApplication] -> request: {}", this.getClass().getSimpleName(), creditApplicationCreateRequest);
         if(!checkIfCreditApplicationCustomerExist(creditApplicationCreateRequest.getCustomer())){
             return new ErrorDataResult<>("Customer is not found.");
         }
@@ -45,27 +44,34 @@ public class CreditApplicationService {
         CreditCondition creditCondition = new CreditCondition();
         CreditApplication result = creditCondition.checkCreditCondition(creditApplication, creditApplicationCreateRequest);
         this.creditApplicationRepository.save(result);
+        log.debug("[{}][createCreditApplication] -> response: {}", this.getClass().getSimpleName(), result);
         return new SuccessDataResult<>(new CreditApplicationResponse(result),"Credit application is added.");
     }
 
     public DataResult<CreditApplicationResponse> deleteCreditApplication(Long creditApplicationId){
+        log.debug("[{}][deleteCreditApplication] -> request: {}", this.getClass().getSimpleName(), "Delete credit application.");
         if(!checkIfCreditApplicationIdExist(creditApplicationId)){
+            log.debug("[{}][deleteCreditApplication] -> response: {}", this.getClass().getSimpleName(), "Credit application id is not found.");
             return new ErrorDataResult<>("Credit application id is not found.");
         }
         else{
             CreditApplication creditApplication = this.creditApplicationRepository.findByCreditApplicationId(creditApplicationId);
             this.creditApplicationRepository.deleteById(creditApplicationId);
+            log.debug("[{}][deleteCreditApplication] -> response: {}", this.getClass().getSimpleName(), creditApplication);
             return new SuccessDataResult<>(new CreditApplicationResponse(creditApplication),"Credit application is deleted.");
         }
     }
 
     public DataResult<List<Object>> find(String identityNumber, Date birthDate){
+        log.debug("[{}][find] -> request: {}", this.getClass().getSimpleName(), "Find by identity number and birth date.");
         return new SuccessDataResult<>(this.creditApplicationRepository.findByIdentityNumberAndBirthDate(identityNumber,birthDate),"Data listed.");
     }
 
     public DataResult<CreditApplicationResponse> findByCreditApplicationId(Long creditApplicationId){
+        log.debug("[{}][findByCreditApplicationId] -> request: {}", this.getClass().getSimpleName(), "Find by credit application id.");
         CreditApplication creditApplication = this.creditApplicationRepository.findByCreditApplicationId(creditApplicationId);
         CreditApplicationResponse result = this.modelMapperService.forDto().map(creditApplication, CreditApplicationResponse.class);
+        log.debug("[{}][findByCreditApplicationId] -> response: {}", this.getClass().getSimpleName(), result);
         return new SuccessDataResult<>(result, "Credit application is listed.");
     }
 
