@@ -46,6 +46,8 @@ If the customer has given deposit, 50% of the deposit amount is added to the cre
 
 ✅ Use of technologies such as RDBMS(ORM) and Hibernate (JPA)
 
+✅ Logging
+
 ### 💻 Built with
 ---
 
@@ -59,6 +61,7 @@ Technologies used in the project:
 *   AOP 
 *   MySQL
 *   JUnit, Mockito(Unit Testing)
+*   Log
 *   Lombok
 *   Swagger
 
