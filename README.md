@@ -1,4 +1,4 @@
-<h1 align="center">DefineX Java Spring Practicum Final Case - Backend</h1>
+<h1 align="center">Credit Application System - Backend</h1>
 <p>Writing a restful application for a Credit Application System, which will take the credit application requests and return the credit result to the customer according to the relevant criteria, using the Spring Boot framework and optionally writing the frontend.</p>
 <p>With the identity number, name-surname, monthly income, phone information and date of birth, the credit score service that is assumed to have been written before goes to the credit score service and the credit score of the relevant person is obtained and the credit result is shown to the user according to the following rules. (There may be two options as Approval or Rejection.)</p>
 
